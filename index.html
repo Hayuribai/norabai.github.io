@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白佳鹭 | 个人简历</title>
+<style>
+/* ========== 全局重置与基础样式 ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  /* 阳光系透亮色调 */
+  --bg-primary: #faf8f5;
+  --bg-secondary: #f5f0ea;
+  --bg-card: rgba(255,255,255,0.7);
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-border: rgba(200,180,160,0.25);
+  --glass-highlight: rgba(255,255,255,0.85);
+  --accent-warm: #e8833a;
+  --accent-warm-dim: rgba(232,131,58,0.25);
+  --accent-warm-glow: rgba(232,131,58,0.12);
+  --accent-gold: #d4a853;
+  --accent-coral: #f07068;
+  --accent-teal: #3aaa9e;
+  --accent-sky: #5ba4d9;
+  --accent-lavender: #9b7ed8;
+  --text-primary: #2c2a28;
+  --text-secondary: #6b6560;
+  --text-dim: #a09890;
+
+  /* 间距系统 */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 32px;
+  --space-xl: 56px;
+  --space-2xl: 80px;
+
+  /* 缓动函数 */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* 阴影层级 */
+  --card-shadow: 0 4px 24px rgba(120,100,80,0.08);
+  --card-shadow-hover: 0 12px 40px rgba(120,100,80,0.14);
+
+  /* 圆角层级 */
+  --radius-card: 16px;
+  --radius-internal: 12px;
+  --radius-small: 8px;
+
+  /* 过渡 */
+  --transition-smooth: all 0.3s var(--ease-out-quart);
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  font-weight: 400;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--accent-warm-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-warm); }
+
+/* ========== 阳光背景氛围 ========== */
+.bg-atmosphere {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none; overflow: hidden;
+}
+.bg-atmosphere .orb {
+  position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.18;
+  animation: orbFloat 25s ease-in-out infinite;
+}
+.bg-atmosphere .orb:nth-child(1) {
+  width: 600px; height: 600px; background: #f5c882;
+  top: -200px; left: -100px; animation-delay: 0s;
+}
+.bg-atmosphere .orb:nth-child(2) {
+  width: 500px; height: 500px; background: #f0a848;
+  bottom: -150px; right: -100px; animation-delay: -8s;
+}
+.bg-atmosphere .orb:nth-child(3) {
+  width: 400px; height: 400px; background: #e8833a;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  animation-delay: -16s; opacity: 0.08;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.05); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* ========== 液态玻璃效果 ========== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  position: relative;
+  box-shadow: var(--card-shadow);
+}
+.glass::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+.glass-strong {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border: 1px solid rgba(200,180,160,0.3);
+  border-radius: var(--radius-card);
+  position: relative;
+  box-shadow: var(--card-shadow);
+}
+.glass-strong::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+/* ========== 导航栏 ========== */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 40px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(250,248,245,0.85);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,180,160,0.12);
+  transition: var(--transition-smooth);
+}
+.navbar.scrolled {
+  background: rgba(250,248,245,0.95);
+  box-shadow: 0 2px 20px rgba(120,100,80,0.08);
+}
+.nav-logo {
+  font-size: 1.2rem; font-weight: 700; letter-spacing: 2px;
+  background: linear-gradient(135deg, #e8833a 0%, #f5c882 25%, #f0a848 50%, #d4a853 75%, #e8833a 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: logoShimmer 4s ease-in-out infinite;
+  transition: transform 0.3s var(--ease-out-quart), filter 0.3s var(--ease-out-quart);
+  display: inline-block;
+}
+.nav-logo:hover {
+  transform: scale(1.05);
+  filter: brightness(1.15);
+}
+@keyframes logoShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.nav-links { display: flex; gap: 4px; list-style: none; }
+.nav-links li a {
+  display: block; padding: 8px 16px; color: var(--text-secondary);
+  text-decoration: none; font-size: 0.88rem; font-weight: 500;
+  border-radius: var(--radius-small); transition: var(--transition-smooth);
+  position: relative; letter-spacing: 0.5px;
+  min-height: 44px; min-width: 44px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-links li a:hover, .nav-links li a.active {
+  color: var(--accent-warm);
+  background: rgba(232,131,58,0.08);
+}
+.nav-links li a.active::after {
+  content: ''; position: absolute; bottom: 4px; left: 50%;
+  transform: translateX(-50%); width: 20px; height: 2px;
+  background: var(--accent-warm); border-radius: 1px;
+}
+
+/* ========== 语言切换按钮 ========== */
+.lang-toggle {
+  padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+  background: rgba(232,131,58,0.08); border: 1px solid rgba(232,131,58,0.2);
+  color: var(--accent-warm); cursor: pointer;
+  transition: var(--transition-smooth);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  min-height: 44px; min-width: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.lang-toggle:hover {
+  background: rgba(232,131,58,0.15); border-color: rgba(232,131,58,0.35);
+}
+/* 移动端菜单按钮 */
+.menu-toggle {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 8px; z-index: 1001;
+  min-width: 44px; min-height: 44px;
+  align-items: center; justify-content: center;
+}
+.menu-toggle span {
+  display: block; width: 24px; height: 2px; background: var(--text-primary);
+  border-radius: 2px; transition: var(--transition-smooth);
+}
+.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ========== 主内容区 ========== */
+.main-content {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto;
+  padding: 84px 24px 60px;
+}
+.section {
+  display: none; opacity: 0;
+  animation: fadeInUp 0.6s var(--ease-out-quart) forwards;
+  min-height: calc(100vh - 144px);
+}
+.section.active { display: block; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== 首页/个人简介 ========== */
+.hero {
+  display: flex; align-items: center; gap: 60px;
+  min-height: calc(100vh - 200px); padding: 40px 0;
+}
+.hero-avatar-wrap {
+  flex-shrink: 0; position: relative;
+}
+/* 头像占位样式 - 阳光系渐变 */
+.avatar-placeholder {
+  width: 220px; height: 220px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(232,131,58,0.15), rgba(245,200,130,0.2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; font-weight: 700; color: var(--accent-warm);
+  border: 2px solid var(--accent-warm-dim);
+  position: relative; overflow: hidden;
+  transition: transform 0.3s var(--ease-out-quart);
+  box-shadow: 0 8px 32px rgba(232,131,58,0.12);
+}
+.avatar-placeholder:hover {
+  transform: scale(1.05);
+}
+.avatar-placeholder::before {
+  content: ''; position: absolute; inset: -2px;
+  border-radius: 50%; padding: 2px;
+  background: conic-gradient(from 0deg, #e8833a, #f5c882, #f0a848, #d4a853, #e8833a);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: avatarRingSpin 12s linear infinite;
+}
+@keyframes avatarRingSpin {
+  to { transform: rotate(360deg); }
+}
+.avatar-placeholder img {
+  width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+  position: absolute; top: 0; left: 0;
+}
+.hero-info { flex: 1; }
+.hero-info .greeting {
+  font-size: 1rem; color: var(--accent-warm); font-weight: 500;
+  letter-spacing: 3px; margin-bottom: var(--space-sm);
+}
+.hero-info h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.2;
+  margin-bottom: var(--space-xs); letter-spacing: -0.5px;
+  color: var(--text-primary);
+  display: inline-block;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 25%, var(--accent-warm) 50%, var(--accent-gold) 75%, var(--text-primary) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: logoShimmer 5s ease-in-out infinite;
+}
+.hero-info h1 span {
+  -webkit-text-fill-color: transparent;
+}
+.hero-info .subtitle {
+  font-size: 1.3rem; color: var(--text-secondary); margin-bottom: var(--space-md);
+  font-weight: 300;
+}
+.hero-info .tagline {
+  font-size: 1rem; color: var(--text-dim); margin-bottom: var(--space-lg);
+  line-height: 1.8; max-width: 560px;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+.hero-tags .tag {
+  padding: 6px 16px; border-radius: 20px; font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  min-height: 44px;
+  display: inline-flex; align-items: center;
+}
+.hero-tags .tag:nth-child(1) {
+  background: rgba(232,131,58,0.08); border: 1px solid rgba(232,131,58,0.18);
+  color: var(--accent-warm);
+}
+.hero-tags .tag:nth-child(2) {
+  background: rgba(58,170,158,0.08); border: 1px solid rgba(58,170,158,0.18);
+  color: var(--accent-teal);
+}
+.hero-tags .tag:nth-child(3) {
+  background: rgba(212,168,83,0.08); border: 1px solid rgba(212,168,83,0.18);
+  color: var(--accent-gold);
+}
+.hero-tags .tag:nth-child(4) {
+  background: rgba(240,112,104,0.08); border: 1px solid rgba(240,112,104,0.18);
+  color: var(--accent-coral);
+}
+.hero-tags .tag:nth-child(5) {
+  background: rgba(91,164,217,0.08); border: 1px solid rgba(91,164,217,0.18);
+  color: var(--accent-sky);
+}
+.hero-tags .tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(120,100,80,0.1);
+}
+.hero-contact {
+  display: flex; flex-wrap: wrap; gap: var(--space-md);
+}
+.hero-contact .contact-item {
+  display: flex; align-items: center; gap: var(--space-xs);
+  color: var(--text-secondary); font-size: 0.9rem;
+}
+.hero-contact .contact-item svg {
+  width: 18px; height: 18px; stroke: var(--accent-warm); fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* 视差装饰元素 */
+.parallax-decoration {
+  position: absolute; pointer-events: none; z-index: -1;
+}
+.parallax-decoration .line {
+  position: absolute; background: linear-gradient(180deg, var(--accent-warm-dim), transparent);
+  width: 1px; height: 200px; opacity: 0.2;
+}
+
+/* ========== 通用区块标题 ========== */
+.section-header {
+  margin-bottom: var(--space-xl); padding-top: var(--space-md);
+}
+.section-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: var(--space-xs);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 25%, var(--accent-warm) 50%, var(--accent-gold) 75%, var(--text-primary) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: logoShimmer 5s ease-in-out infinite;
+  position: relative;
+  display: inline-block;
+}
+/* 英文副标题 - 柔和流光 */
+.section-header h2 span {
+  font-size: 0.5em; font-weight: 400;
+  background: linear-gradient(135deg, var(--text-dim) 0%, var(--accent-gold) 25%, var(--accent-warm) 50%, var(--accent-gold) 75%, var(--text-dim) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: logoShimmer 5s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.section-header p {
+  color: var(--text-secondary); font-size: 0.95rem;
+}
+.section-divider {
+  width: 60px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent-gold));
+  margin-top: var(--space-md);
+  position: relative;
+  overflow: hidden;
+}
+/* 分隔线流光 */
+.section-divider::after {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: dividerGlow 3s ease-in-out infinite;
+}
+@keyframes dividerGlow {
+  0%, 100% { left: -100%; }
+  50% { left: 100%; }
+}
+
+/* ========== 工作经历（紧凑间距） ========== */
+.timeline { position: relative; padding-left: 40px; }
+.timeline::before {
+  content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(180deg, var(--accent-warm), var(--accent-gold), transparent);
+}
+.timeline-item {
+  position: relative; margin-bottom: var(--space-lg);
+  padding: var(--space-lg) var(--space-lg);
+  border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  box-shadow: var(--card-shadow);
+}
+.timeline-item:hover {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(232,131,58,0.2);
+  transform: translateX(4px);
+  box-shadow: var(--card-shadow-hover);
+}
+.timeline-item::before {
+  content: ''; position: absolute; left: -33px; top: 32px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent-warm); border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 12px var(--accent-warm-dim);
+}
+.timeline-item .time-badge {
+  display: inline-block; padding: 4px 14px; border-radius: 20px;
+  font-size: 0.8rem; color: var(--accent-warm);
+  background: rgba(232,131,58,0.08); border: 1px solid rgba(232,131,58,0.18);
+  margin-bottom: var(--space-sm); font-weight: 500;
+}
+.timeline-item h3 {
+  font-size: 1.25rem; font-weight: 700; margin-bottom: 4px;
+  color: var(--text-primary);
+}
+.timeline-item .company {
+  font-size: 0.95rem; color: var(--accent-teal); margin-bottom: 6px; font-weight: 500;
+}
+.timeline-item .role { font-size: 0.85rem; color: var(--text-dim); margin-bottom: var(--space-md); }
+.timeline-item .summary {
+  font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8;
+  margin-bottom: var(--space-md); padding: var(--space-md);
+  border-radius: var(--radius-internal);
+  background: rgba(232,131,58,0.04); border-left: 3px solid var(--accent-warm);
+}
+.timeline-item .detail-list { list-style: none; }
+.timeline-item .detail-list li {
+  position: relative; padding: 8px 0 8px 20px;
+  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;
+}
+.timeline-item .detail-list li::before {
+  content: '\25B8'; position: absolute; left: 0; color: var(--accent-warm);
+  font-size: 0.85rem;
+}
+.timeline-item .detail-list li strong { color: var(--text-primary); }
+
+/* ========== 项目经历（宽松间距） ========== */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+}
+.bento-card {
+  padding: var(--space-lg); border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  position: relative; overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+.bento-card::after {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,131,58,0.08), transparent 70%);
+  opacity: 0; transition: var(--transition-smooth);
+}
+.bento-card:hover {
+  border-color: rgba(232,131,58,0.2);
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+.bento-card:hover::after { opacity: 1; }
+.bento-card.featured {
+  grid-column: span 2;
+}
+.bento-card .card-tag {
+  display: inline-block; padding: 4px 12px; border-radius: var(--radius-small);
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;
+  margin-bottom: var(--space-md);
+}
+.bento-card .card-tag.pm { background: rgba(232,131,58,0.1); color: var(--accent-warm); }
+.bento-card .card-tag.strategy { background: rgba(58,170,158,0.1); color: var(--accent-teal); }
+.bento-card .card-tag.core { background: rgba(91,164,217,0.1); color: var(--accent-sky); }
+.bento-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; color: var(--text-primary); }
+.bento-card .card-meta {
+  font-size: 0.85rem; color: var(--text-dim); margin-bottom: var(--space-md);
+  display: flex; align-items: center; gap: var(--space-sm);
+}
+.bento-card .card-meta .date { color: var(--accent-warm); font-weight: 500; }
+.bento-card .card-desc {
+  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+.bento-card .highlight-box {
+  padding: var(--space-md); border-radius: var(--radius-internal);
+  background: rgba(232,131,58,0.04);
+  border: 1px solid rgba(232,131,58,0.08);
+  margin-bottom: var(--space-sm);
+}
+.bento-card .highlight-box .hl-title {
+  font-size: 0.8rem; color: var(--accent-warm); font-weight: 600;
+  margin-bottom: var(--space-xs); letter-spacing: 1px;
+}
+.bento-card .highlight-box p {
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;
+}
+.bento-card .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-md); }
+.bento-card .card-tags span {
+  padding: 3px 10px; border-radius: var(--radius-small); font-size: 0.75rem;
+  background: rgba(232,131,58,0.06); color: var(--text-dim);
+  border: 1px solid rgba(200,180,160,0.15);
+}
+
+/* ========== 教育背景 ========== */
+.edu-card {
+  padding: var(--space-lg); border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  margin-bottom: var(--space-lg);
+  transition: var(--transition-smooth);
+  display: flex; gap: var(--space-lg); align-items: flex-start;
+  box-shadow: var(--card-shadow);
+}
+.edu-card:hover {
+  border-color: rgba(232,131,58,0.2);
+  box-shadow: var(--card-shadow-hover);
+}
+.edu-icon {
+  flex-shrink: 0; width: 64px; height: 64px; border-radius: var(--radius-internal);
+  background: rgba(232,131,58,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+}
+.edu-info { flex: 1; }
+.edu-info h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; color: var(--text-primary); }
+.edu-info .edu-school {
+  font-size: 1rem; color: var(--accent-teal); margin-bottom: 4px; font-weight: 500;
+}
+.edu-info .edu-detail {
+  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;
+}
+.edu-info .edu-detail span { color: var(--text-dim); }
+
+/* ========== 技能特长 ========== */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg);
+}
+.skill-category {
+  padding: 28px; border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  box-shadow: var(--card-shadow);
+}
+.skill-category:hover {
+  border-color: rgba(232,131,58,0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+.skill-category h3 {
+  font-size: 1.05rem; font-weight: 700; margin-bottom: var(--space-md);
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text-primary);
+}
+.skill-category h3 .cat-icon {
+  font-size: 1.15rem;
+}
+.skill-item {
+  margin-bottom: 14px;
+}
+.skill-item:last-child {
+  margin-bottom: 0;
+}
+.skill-item .skill-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 6px;
+}
+.skill-item .skill-name {
+  font-size: 0.88rem; color: var(--text-primary); font-weight: 500;
+  transition: color 0.3s ease;
+}
+.skill-item:hover .skill-name { color: var(--accent-warm); }
+.skill-item .skill-name-en {
+  font-size: 0.75rem; color: var(--text-dim); font-weight: 400; margin-left: 6px;
+}
+.skill-item .skill-level { font-size: 0.78rem; color: var(--accent-warm); font-weight: 500; }
+.skill-bar {
+  height: 6px; border-radius: 3px;
+  background: rgba(200,180,160,0.15);
+  overflow: hidden;
+}
+.skill-bar .fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent-gold));
+  transition: width 1.2s var(--ease-out-quart), filter 0.3s ease, height 0.3s ease;
+  position: relative;
+}
+.skill-item:hover .skill-bar .fill {
+  filter: brightness(1.2);
+  height: 8px;
+}
+.skill-bar .fill::after {
+  content: ''; position: absolute; right: 0; top: -1px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-gold);
+  box-shadow: 0 0 8px var(--accent-warm-dim);
+  transition: transform 0.3s var(--ease-out-quart), box-shadow 0.3s ease;
+}
+.skill-item:hover .skill-bar .fill::after {
+  transform: scale(1.5);
+  box-shadow: 0 0 14px var(--accent-warm-dim);
+}
+/* 技能标签组 - 设计感特效 */
+.skill-tags {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.skill-tags span {
+  padding: 8px 16px; border-radius: 20px; font-size: 0.85rem;
+  background: rgba(245,240,232,0.8);
+  border: 1px solid rgba(200,180,160,0.2);
+  color: var(--text-primary); font-weight: 500;
+  transition: all 0.35s var(--ease-out-quart);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+/* 标签流光边框 */
+.skill-tags span::before {
+  content: '';
+  position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent-gold), var(--accent-teal), var(--accent-warm));
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: tagBorderShimmer 4s ease-in-out infinite paused;
+}
+.skill-tags span::after {
+  content: '';
+  position: absolute; inset: 1px;
+  border-radius: 19px;
+  background: rgba(245,240,232,0.95);
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+@keyframes tagBorderShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.skill-tags span:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(232,131,58,0.15);
+  color: var(--accent-warm);
+}
+.skill-tags span:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+.skill-tags span:hover::after {
+  background: rgba(255,252,248,0.95);
+}
+/* 标签点击弹跳 */
+.skill-tags span:active {
+  transform: translateY(-1px) scale(0.98);
+}
+/* 不同标签的微妙色彩差异 */
+.skill-tags span:nth-child(3n+1):hover { color: var(--accent-warm); }
+.skill-tags span:nth-child(3n+2):hover { color: var(--accent-teal); }
+.skill-tags span:nth-child(3n+3):hover { color: var(--accent-gold); }
+.skill-tags span:nth-child(3n+1):hover::before {
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent-gold), var(--accent-warm));
+  background-size: 300% 300%;
+}
+.skill-tags span:nth-child(3n+2):hover::before {
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-sky), var(--accent-teal));
+  background-size: 300% 300%;
+}
+.skill-tags span:nth-child(3n+3):hover::before {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-coral), var(--accent-gold));
+  background-size: 300% 300%;
+}
+
+/* ========== 证书/荣誉 ========== */
+.honors-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md);
+}
+/* 特色论文卡片 */
+.honor-card.featured {
+  grid-column: span 2;
+  padding: var(--space-lg);
+  border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  display: flex; gap: var(--space-md); align-items: flex-start;
+  box-shadow: var(--card-shadow);
+  border-left: 3px solid var(--accent-warm);
+}
+.honor-card.featured:hover {
+  border-color: rgba(232,131,58,0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+.honor-card.featured .honor-icon {
+  flex-shrink: 0; width: 48px; height: 48px; border-radius: var(--radius-internal);
+  background: rgba(232,131,58,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+}
+.honor-card.featured .honor-info h4 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 6px; line-height: 1.5;
+  color: var(--text-primary);
+}
+.honor-card.featured .honor-info p {
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* 紧凑列表式荣誉 */
+.honor-list {
+  grid-column: span 2;
+  display: flex; flex-direction: column; gap: 0;
+}
+.honor-list-item {
+  display: flex; align-items: center; gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid rgba(200,180,160,0.12);
+  transition: var(--transition-smooth);
+  min-height: 44px;
+}
+.honor-list-item:last-child {
+  border-bottom: none;
+}
+.honor-list-item:hover {
+  background: rgba(232,131,58,0.03);
+}
+.honor-list-item .honor-icon {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: var(--radius-small);
+  background: rgba(232,131,58,0.06);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+}
+.honor-list-item .honor-info {
+  flex: 1; display: flex; align-items: baseline; gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+.honor-list-item .honor-info h4 {
+  font-size: 0.88rem; font-weight: 600; line-height: 1.5;
+  color: var(--text-primary);
+}
+.honor-list-item .honor-info p {
+  font-size: 0.78rem; color: var(--text-dim);
+}
+
+/* ========== 专利 ========== */
+.patent-card {
+  padding: var(--space-lg); border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  margin-bottom: var(--space-lg);
+  position: relative; overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+.patent-card::before {
+  content: ''; position: absolute; top: -50%; right: -20%;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,131,58,0.06), transparent 70%);
+  opacity: 0.5;
+}
+.patent-card:hover {
+  border-color: rgba(232,131,58,0.2);
+  box-shadow: var(--card-shadow-hover);
+}
+.patent-header {
+  display: flex; align-items: flex-start; gap: var(--space-md); margin-bottom: var(--space-md);
+  position: relative; z-index: 1;
+}
+.patent-badge {
+  flex-shrink: 0; padding: 8px 16px; border-radius: var(--radius-small);
+  background: linear-gradient(135deg, #e8833a 0%, #f5c882 25%, #f0a848 50%, #d4a853 75%, #e8833a 100%);
+  background-size: 200% 200%;
+  font-size: 0.8rem; font-weight: 700; color: #fff;
+  letter-spacing: 1px; white-space: nowrap;
+  animation: patentBadgeShimmer 3s ease-in-out infinite;
+}
+@keyframes patentBadgeShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.patent-header h3 {
+  font-size: 1.2rem; font-weight: 700; line-height: 1.5;
+  color: var(--text-primary);
+  transition: color 0.3s var(--ease-out-quart);
+}
+.patent-header h3:hover {
+  color: var(--accent-warm);
+}
+.patent-header a {
+  text-decoration: none;
+  color: inherit;
+}
+.patent-meta {
+  display: flex; flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-md);
+  padding: var(--space-md); border-radius: var(--radius-internal);
+  background: rgba(232,131,58,0.03);
+  position: relative; z-index: 1;
+}
+.patent-meta .meta-item {
+  font-size: 0.85rem; color: var(--text-secondary);
+}
+.patent-meta .meta-item strong { color: var(--text-primary); }
+.patent-desc {
+  font-size: 0.92rem; color: var(--text-secondary); line-height: 1.8;
+  position: relative; z-index: 1;
+}
+.patent-inventors {
+  margin-top: var(--space-md); padding-top: var(--space-md);
+  border-top: 1px solid rgba(200,180,160,0.15);
+  position: relative; z-index: 1;
+}
+.patent-inventors span {
+  font-size: 0.85rem; color: var(--text-dim);
+}
+.patent-inventors strong {
+  background: linear-gradient(135deg, #e8833a 0%, #f5c882 25%, #f0a848 50%, #d4a853 75%, #e8833a 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: patentBadgeShimmer 3s ease-in-out infinite;
+  font-weight: 700;
+}
+
+/* ========== 数据可视化图表 ========== */
+.data-viz-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md); margin-top: var(--space-lg);
+}
+.data-viz-card {
+  padding: var(--space-md); border-radius: var(--radius-internal);
+  background: rgba(245,240,232,0.6);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(200,180,160,0.15);
+  text-align: center;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+/* 鼠标跟随光晕 */
+.data-viz-card::before {
+  content: '';
+  position: absolute; width: 150px; height: 150px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(232,131,58,0.12), transparent 70%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+.data-viz-card:hover::before { opacity: 1; }
+.data-viz-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(232,131,58,0.2);
+}
+.data-viz-card > * { position: relative; z-index: 1; }
+.data-viz-card .viz-label {
+  font-size: 0.78rem; color: var(--text-dim); margin-bottom: 8px;
+  font-weight: 500; letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+.data-viz-card:hover .viz-label { color: var(--accent-warm); }
+.data-viz-card .viz-value {
+  font-size: 1.8rem; font-weight: 900; line-height: 1.2;
+  margin-bottom: 4px;
+  transition: transform 0.4s var(--ease-out-quart);
+}
+.data-viz-card:hover .viz-value { transform: scale(1.1); }
+.data-viz-card .viz-sub {
+  font-size: 0.72rem; color: var(--text-dim);
+  transition: color 0.3s ease;
+}
+.data-viz-card:hover .viz-sub { color: var(--text-secondary); }
+/* 环形进度条 */
+.ring-chart {
+  width: 80px; height: 80px; margin: 0 auto 8px;
+  position: relative;
+  transition: transform 0.4s var(--ease-out-quart);
+}
+.data-viz-card:hover .ring-chart { transform: scale(1.08); }
+.ring-chart svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring-chart .ring-bg {
+  fill: none; stroke: rgba(200,180,160,0.15); stroke-width: 6;
+}
+.ring-chart .ring-fill {
+  fill: none; stroke-width: 6; stroke-linecap: round;
+  transition: stroke-dashoffset 1.5s var(--ease-out-quart), stroke-width 0.3s ease;
+}
+.data-viz-card:hover .ring-fill { stroke-width: 8; }
+.ring-chart .ring-label {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1rem; font-weight: 800;
+  transition: transform 0.3s var(--ease-out-quart);
+}
+.data-viz-card:hover .ring-label { transform: translate(-50%, -50%) scale(1.15); }
+/* 环形图呼吸脉冲 */
+@keyframes ringPulse {
+  0%, 100% { filter: drop-shadow(0 0 0px transparent); }
+  50% { filter: drop-shadow(0 0 6px rgba(232,131,58,0.3)); }
+}
+.data-viz-card:hover .ring-fill { animation: ringPulse 2s ease-in-out infinite; }
+/* 对比条形图 */
+.bar-chart { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.bar-row { display: flex; align-items: center; gap: 8px; }
+.bar-row .bar-label { font-size: 0.72rem; color: var(--text-secondary); width: 70px; flex-shrink: 0; text-align: right; }
+.bar-row .bar-track { flex: 1; height: 10px; border-radius: 5px; background: rgba(200,180,160,0.12); overflow: hidden; }
+.bar-row .bar-fill {
+  height: 100%; border-radius: 5px;
+  transition: width 1.2s var(--ease-out-quart), filter 0.3s ease;
+}
+.data-viz-card:hover .bar-fill { filter: brightness(1.15); }
+/* 条形图逐条延迟动画 - 由JS控制 */
+.bar-row .bar-val { font-size: 0.72rem; color: var(--text-dim); width: 36px; flex-shrink: 0; transition: color 0.3s ease; }
+.data-viz-card:hover .bar-val { color: var(--text-secondary); }
+/* 指标仪表盘 */
+.gauge-chart { width: 80px; height: 80px; margin: 0 auto 8px; position: relative; }
+.gauge-chart svg { width: 100%; height: 100%; }
+.gauge-chart .gauge-bg { fill: none; stroke: rgba(200,180,160,0.12); stroke-width: 6; stroke-linecap: round; }
+.gauge-chart .gauge-fill { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 1.5s var(--ease-out-quart); }
+.gauge-chart .gauge-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1rem; font-weight: 800; }
+/* 迷你折线图 */
+.sparkline { width: 100%; height: 40px; margin-top: 4px; }
+.sparkline svg { width: 100%; height: 100%; }
+.sparkline .spark-line { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sparkline .spark-area { opacity: 0.15; }
+/* 图表颜色 */
+.viz-warm { color: var(--accent-warm); }
+.viz-gold { color: var(--accent-gold); }
+.viz-teal { color: var(--accent-teal); }
+.viz-coral { color: var(--accent-coral); }
+.viz-sky { color: var(--accent-sky); }
+.viz-lavender { color: var(--accent-lavender); }
+
+/* ========== 校园经历 ========== */
+.campus-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg);
+}
+.campus-card {
+  padding: 28px; border-radius: var(--radius-card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  box-shadow: var(--card-shadow);
+}
+.campus-card:hover {
+  border-color: rgba(232,131,58,0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+.campus-card .campus-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: var(--space-md);
+}
+.campus-card h3 { font-size: 1.1rem; font-weight: 700; flex: 1; color: var(--text-primary); }
+.campus-card .campus-date {
+  font-size: 0.8rem; color: var(--accent-warm); font-weight: 500;
+  white-space: nowrap; margin-left: var(--space-sm);
+}
+.campus-card .campus-role {
+  font-size: 0.85rem; color: var(--accent-teal); margin-bottom: var(--space-sm);
+}
+.campus-card ul { list-style: none; }
+.campus-card ul li {
+  position: relative; padding: 6px 0 6px 18px;
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;
+}
+.campus-card ul li::before {
+  content: '\25B9'; position: absolute; left: 0; color: var(--accent-warm);
+}
+
+/* ========== 页脚 ========== */
+.footer {
+  text-align: center; padding: 40px 24px;
+  color: var(--text-dim); font-size: 0.85rem;
+  border-top: 1px solid rgba(200,180,160,0.12);
+  margin-top: 60px;
+}
+.footer .footer-line {
+  width: 60px; height: 2px; margin: 0 auto var(--space-md);
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent-gold));
+  border-radius: 1px;
+}
+
+/* ========== 响应式 - 平板端 ========== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero { gap: var(--space-lg); }
+  .avatar-placeholder { width: 180px; height: 180px; font-size: 3.2rem; }
+  .bento-grid { gap: var(--space-md); }
+  .skills-grid { gap: var(--space-md); }
+  .campus-grid { gap: var(--space-md); }
+  .timeline-item { padding: var(--space-md); }
+}
+
+/* ========== 响应式 - 移动端 ========== */
+@media (max-width: 768px) {
+  .navbar { padding: 0 16px; }
+  .data-viz-row { grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+  .data-viz-card { padding: var(--space-sm); }
+  .data-viz-card .viz-value { font-size: 1.4rem; }
+  .ring-chart { width: 60px; height: 60px; }
+  .ring-chart .ring-label { font-size: 0.9rem; }
+  .nav-links {
+    display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+    background: rgba(250,248,245,0.98);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--space-xs); padding: var(--space-md);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li a {
+    font-size: 1.1rem; padding: 16px 32px;
+    min-height: 44px;
+  }
+  .menu-toggle { display: flex; }
+
+  .hero { flex-direction: column; text-align: center; gap: var(--space-lg); padding-top: var(--space-md); }
+  .hero-info h1 { font-size: 2.2rem; }
+  .hero-info .subtitle { font-size: 1.1rem; }
+  .hero-info .tagline { max-width: 100%; }
+  .hero-tags { justify-content: center; }
+  .hero-contact { justify-content: center; }
+  .avatar-placeholder { width: 160px; height: 160px; font-size: 3rem; }
+
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-card.featured { grid-column: span 1; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .honors-grid { grid-template-columns: 1fr; }
+  .honor-card.featured { grid-column: span 1; }
+  .honor-list { grid-column: span 1; }
+  .campus-grid { grid-template-columns: 1fr; }
+  .edu-card { flex-direction: column; gap: var(--space-md); }
+  .edu-icon { width: 48px; height: 48px; font-size: 1.4rem; }
+  .section-header h2 { font-size: 1.6rem; }
+
+  .timeline { padding-left: 30px; }
+  .timeline-item { padding: var(--space-md); }
+  .timeline-item::before { left: -23px; width: 10px; height: 10px; }
+  .patent-header { flex-direction: column; gap: var(--space-sm); }
+  .patent-meta { flex-direction: column; gap: var(--space-xs); }
+}
+
+@media (max-width: 480px) {
+  .hero-info h1 { font-size: 1.8rem; }
+  .hero-info .subtitle { font-size: 1rem; }
+  .main-content { padding: 74px 16px 40px; }
+  .bento-card, .skill-category, .campus-card { padding: var(--space-md); }
+}
+
+/* ========== prefers-reduced-motion ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .bg-atmosphere .orb { animation: none; }
+  .avatar-placeholder::before { animation: none; }
+}
+
+/* ========== 滚动视差辅助 ========== */
+.parallax-layer {
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+</style>
+</head>
+<body>
+
+<!-- 背景氛围层 -->
+<div class="bg-atmosphere">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+</div>
+
+<!-- 导航栏 -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">BAI JIALU</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" class="active" data-section="home" data-zh="首页" data-en="Home">首页</a></li>
+    <li><a href="#" data-section="work" data-zh="工作经历" data-en="Experience">工作经历</a></li>
+    <li><a href="#" data-section="projects" data-zh="项目经历" data-en="Projects">项目经历</a></li>
+    <li><a href="#" data-section="education" data-zh="教育背景" data-en="Education">教育背景</a></li>
+    <li><a href="#" data-section="skills" data-zh="技能特长" data-en="Skills">技能特长</a></li>
+    <li><a href="#" data-section="honors" data-zh="证书荣誉" data-en="Honors">证书荣誉</a></li>
+    <li><a href="#" data-section="patent" data-zh="专利" data-en="Patent">专利</a></li>
+    <li><a href="#" data-section="campus" data-zh="校园经历" data-en="Campus">校园经历</a></li>
+  </ul>
+  <button class="lang-toggle" id="langToggle">EN</button>
+  <div class="menu-toggle" id="menuToggle">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- 主内容区 -->
+<main class="main-content">
+
+  <!-- ===== 首页/个人简介 ===== -->
+  <div class="section active" id="section-home">
+    <div class="hero">
+      <div class="hero-avatar-wrap parallax-layer" data-speed="0.03">
+        <div class="avatar-placeholder" id="avatarContainer">
+          <!-- 头像将通过JS动态加载 -->
+        </div>
+      </div>
+      <div class="hero-info">
+        <div class="greeting" data-zh="你好，我是" data-en="Hello, I'm">你好，我是</div>
+        <h1><span data-zh="白佳鹭" data-en="Nora Bai">白佳鹭</span></h1>
+        <div class="subtitle" data-zh="AI产品经理 · 应用心理学 · 创新实践者" data-en="AI Product Manager · Applied Psychology · Innovator">AI产品经理 · 应用心理学 · 创新实践者</div>
+        <div class="tagline" data-zh="以心理学专业为底座，AI技术为驱动，擅长从0到1打造智能化产品。具备跨团队协作与商业化落地能力，致力于用科技赋能心理健康与教育领域。" data-en="With psychology as my foundation and AI technology as my driver, I specialize in building intelligent products from 0 to 1. Equipped with cross-team collaboration and commercialization capabilities, I am dedicated to empowering mental health and education through technology.">以心理学专业为底座，AI技术为驱动，擅长从0到1打造智能化产品。
+          具备跨团队协作与商业化落地能力，致力于用科技赋能心理健康与教育领域。
+        </div>
+        <div class="hero-tags">
+          <span class="tag" data-zh="AI产品经理" data-en="AI PM">AI产品经理</span>
+          <span class="tag" data-zh="心理学背景" data-en="Psychology">心理学背景</span>
+          <span class="tag" data-zh="数据驱动" data-en="Data-Driven">数据驱动</span>
+          <span class="tag" data-zh="用户研究" data-en="User Research">用户研究</span>
+          <span class="tag" data-zh="智能体应用" data-en="Agent Apps">智能体应用</span>
+        </div>
+        <div class="hero-contact">
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-zh="13049776573" data-en="13049776573">13049776573</span>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span data-zh="norabai233@163.com" data-en="norabai233@163.com">norabai233@163.com</span>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-zh="广东东莞" data-en="Dongguan, Guangdong">广东东莞</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 工作经历 ===== -->
+  <div class="section" id="section-work">
+    <div class="section-header">
+      <h2 data-text="工作经历">工作经历 <span data-text="Work Experience" style="font-size:0.5em;color:var(--text-dim);font-weight:400">Work Experience</span></h2>
+      <p data-zh="从心理学到AI产品，跨领域驱动创新" data-en="From Psychology to AI Products, Driving Cross-Domain Innovation">从心理学到AI产品，跨领域驱动创新</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item parallax-layer" data-speed="0.02">
+        <span class="time-badge">2023.12 - 2025.11</span>
+        <h3 data-zh="产品经理" data-en="Product Manager">产品经理</h3>
+        <div class="company" data-zh="深圳市鹰瞳智能技术有限公司" data-en="Shenzhen Airdoc Intelligent Technology Co., Ltd.">深圳市鹰瞳智能技术有限公司</div>
+        <div class="role" data-zh="AI智能监测软件产品负责人" data-en="AI Intelligent Monitoring Software Product Lead">AI智能监测软件产品负责人</div>
+        <div class="summary" data-zh="核心概括：以心理学专业为底座，AI技术为驱动，主导4款核心AI监测软件从0到1/N的产品化全流程。通过搭建标准化用户研究与模型迭代体系，将核心产品监测准确率从37%大幅提升至91%，成功开辟教育、军工两大行业市场，驱动核心客户使用率提升65%，用户满意度提升60%，直接支撑10+教育机构与3个军方项目的商业化落地。" data-en="Core Summary: With psychology as my foundation and AI technology as my driver, I led the end-to-end productization of 4 core AI monitoring software products from 0 to 1/N. By establishing standardized user research and model iteration systems, I improved the core product's monitoring accuracy from 37% to 91%, successfully opened up both the education and military markets, drove a 65% increase in core customer usage and a 60% improvement in user satisfaction, directly supporting the commercial deployment of 10+ educational institutions and 3 military projects.">
+          <strong data-zh="核心概括：" data-en="Core Summary: ">核心概括：</strong>以心理学专业为底座，AI技术为驱动，主导4款核心AI监测软件从0到1/N的产品化全流程。通过搭建标准化用户研究与模型迭代体系，将核心产品监测准确率从37%大幅提升至91%，成功开辟教育、军工两大行业市场，驱动核心客户使用率提升65%，用户满意度提升60%，直接支撑10+教育机构与3个军方项目的商业化落地。
+        </div>
+        <ul class="detail-list">
+          <li data-zh="AI产品理论基础构建与设计：基于行业痛点，0-1设计"实时情绪复杂度-个体时效频率-社会环境反馈-个体本质特征"四维评估模型，确立产品差异化技术路线。综合运用1v1深度访谈、场景化实地测试、VOC用户声音闭环（渗透率达90%）精准定位用户核心需求。通过A/B Test、SPSS统计分析进行数据驱动的产品决策。" data-en="AI Product Theory & Design: Based on industry pain points, designed a 0-to-1 four-dimensional assessment model covering real-time emotional complexity, individual temporal frequency, social environment feedback, and individual essential characteristics, establishing a differentiated technical roadmap. Utilized 1-on-1 in-depth interviews, scenario-based field testing, and VOC (Voice of Customer) closed-loop analysis (90% penetration rate) to precisely identify core user needs. Made data-driven product decisions through A/B testing and SPSS statistical analysis."><strong data-zh="AI产品理论基础构建与设计：" data-en="AI Product Theory & Design: ">AI产品理论基础构建与设计：</strong>基于行业痛点，0-1设计"实时情绪复杂度-个体时效频率-社会环境反馈-个体本质特征"四维评估模型，确立产品差异化技术路线。综合运用1v1深度访谈、场景化实地测试、VOC用户声音闭环（渗透率达90%）精准定位用户核心需求。通过A/B Test、SPSS统计分析进行数据驱动的产品决策。</li>
+          <li data-zh="漏斗分析优化：搭建"数据采集-智能分析-风险预警-干预推荐-效果评估"全链路漏斗监控模型。将数据采集一次性成功率从68%提升至92%，"预警→干预"转化率从15%提升至45%，全链路有效案例月均从不足3例增至25+例，规模化服务能力提升8倍。" data-en="Funnel Analysis Optimization: Built a full-funnel monitoring model covering data collection, intelligent analysis, risk alerting, intervention recommendation, and outcome evaluation. Improved one-time data collection success rate from 68% to 92%, increased the alert-to-intervention conversion rate from 15% to 45%, and grew monthly valid cases from fewer than 3 to 25+, achieving an 8x improvement in scalable service capacity."><strong data-zh="漏斗分析优化：" data-en="Funnel Analysis Optimization: ">漏斗分析优化：</strong>搭建"数据采集-智能分析-风险预警-干预推荐-效果评估"全链路漏斗监控模型。将数据采集一次性成功率从68%提升至92%，"预警→干预"转化率从15%提升至45%，全链路有效案例月均从不足3例增至25+例，规模化服务能力提升8倍。</li>
+          <li data-zh="风险预警闭环与模型突破：为算法团队定义100万+份数据的心理学标注标准与规则，牵头搭建"数据训练-效果验证-参数调优"迭代闭环。通过10+次心理学特征工程优化，将准确率从37%提升至91%，预警漏报率下降80%，用户满意度提升至95%。" data-en="Risk Alerting Closed-Loop & Model Breakthrough: Defined psychology annotation standards and rules for 1M+ data samples for the algorithm team, and led the establishment of an iterative closed-loop for data training, effect validation, and parameter tuning. Through 10+ rounds of psychological feature engineering optimization, improved accuracy from 37% to 91%, reduced missed alert rate by 80%, and increased user satisfaction to 95%."><strong data-zh="风险预警闭环与模型突破：" data-en="Risk Alerting Closed-Loop & Model Breakthrough: ">风险预警闭环与模型突破：</strong>为算法团队定义100万+份数据的心理学标注标准与规则，牵头搭建"数据训练-效果验证-参数调优"迭代闭环。通过10+次心理学特征工程优化，将准确率从37%提升至91%，预警漏报率下降80%，用户满意度提升至95%。</li>
+          <li data-zh="跨团队研发协作与版本管理：协调算法、研发、UI、硬件等跨职能团队，建立周度需求对齐、月度进度复盘的标准化协作机制。统筹管理10+核心版本迭代，累计推动落地10+项行业定制化新功能。" data-en="Cross-Team R&D Collaboration & Version Management: Coordinated cross-functional teams including algorithms, R&D, UI, and hardware, establishing standardized collaboration mechanisms with weekly requirement alignment and monthly progress reviews. Managed 10+ core version iterations, driving the delivery of 10+ industry-customized new features."><strong data-zh="跨团队研发协作与版本管理：" data-en="Cross-Team R&D Collaboration & Version Management: ">跨团队研发协作与版本管理：</strong>协调算法、研发、UI、硬件等跨职能团队，建立周度需求对齐、月度进度复盘的标准化协作机制。统筹管理10+核心版本迭代，累计推动落地10+项行业定制化新功能。</li>
+          <li data-zh="行业化售前售后支持：独立撰写PRD需求文档、用户操作手册、心理学理论依据白皮书等全套标准化文档。累计设计及开展50+场行业专场培训，覆盖客户侧使用人员超600人。支撑10+教育机构、3个军方项目的售前投标与落地，客户满意度及实时使用率达95%。" data-en="Industry Pre-Sales & After-Sales Support: Independently authored comprehensive standardized documentation including PRDs, user manuals, and psychology theory white papers. Designed and delivered 50+ industry-specific training sessions, covering 600+ customer-side users. Supported pre-sales bidding and deployment for 10+ educational institutions and 3 military projects, achieving 95% customer satisfaction and real-time usage rate."><strong data-zh="行业化售前售后支持：" data-en="Industry Pre-Sales & After-Sales Support: ">行业化售前售后支持：</strong>独立撰写PRD需求文档、用户操作手册、心理学理论依据白皮书等全套标准化文档。累计设计及开展50+场行业专场培训，覆盖客户侧使用人员超600人。支撑10+教育机构、3个军方项目的售前投标与落地，客户满意度及实时使用率达95%。</li>
+        </ul>
+        <!-- 工作经历数据可视化 -->
+        <div class="data-viz-row">
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="监测准确率提升" data-en="Monitoring Accuracy Improvement">监测准确率提升</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-warm)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="19.2"/>
+              </svg>
+              <div class="ring-label viz-warm">91%</div>
+            </div>
+            <div class="viz-sub" data-zh="37% → 91%" data-en="37% → 91%">37% → 91%</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="客户使用率提升" data-en="Customer Usage Growth">客户使用率提升</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-teal)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="74.8"/>
+              </svg>
+              <div class="ring-label viz-teal">+65%</div>
+            </div>
+            <div class="viz-sub" data-zh="持续增长" data-en="Steady Growth">持续增长</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="用户满意度" data-en="User Satisfaction">用户满意度</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-gold)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="10.7"/>
+              </svg>
+              <div class="ring-label viz-gold">95%</div>
+            </div>
+            <div class="viz-sub" data-zh="行业培训覆盖600+人" data-en="600+ People Trained">行业培训覆盖600+人</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="漏斗转化率提升" data-en="Funnel Conversion Improvement">漏斗转化率提升</div>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label" data-zh="采集率" data-en="Collection">采集率</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:92%;background:var(--accent-warm)"></div></div>
+                <span class="bar-val">92%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label" data-zh="预警→干预" data-en="Alert→Action">预警→干预</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:45%;background:var(--accent-teal)"></div></div>
+                <span class="bar-val">45%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label" data-zh="月均案例" data-en="Monthly Cases">月均案例</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:83%;background:var(--accent-gold)"></div></div>
+                <span class="bar-val">25+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 项目经历 ===== -->
+  <div class="section" id="section-projects">
+    <div class="section-header">
+      <h2 data-text="项目经历">项目经历 <span data-text="Projects" style="font-size:0.5em;color:var(--text-dim);font-weight:400">Projects</span></h2>
+      <p data-zh="军工、教育、心理服务领域的AI产品实践" data-en="AI Product Practice in Military, Education & Psychology">军工、教育、心理服务领域的AI产品实践</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="bento-grid">
+      <!-- 项目1 - 特色大卡片 -->
+      <div class="bento-card featured parallax-layer" data-speed="0.015">
+        <span class="card-tag core" data-zh="核心项目" data-en="Core">核心项目</span>
+        <h3 data-zh="智慧身心能力训练评估平台 0-1 建设项目" data-en="Smart Physical-Mental Training & Assessment Platform 0-1 Project">智慧身心能力训练评估平台 0-1 建设项目</h3>
+        <div class="card-meta">
+          <span class="date">2024.07 - 2025.11</span>
+          <span data-zh="核心策略负责人" data-en="Core Strategy Lead">核心策略负责人</span>
+        </div>
+        <div class="card-desc" data-zh="针对军事应激缺乏量化评估的空白，主导从0到1打造身心一体化训练评估平台，实现生理心理数据联动的科学化作训管理。" data-en="Addressing the gap in quantitative assessment of military stress, led the 0-to-1 development of an integrated physical-mental training and assessment platform, enabling scientific training management through physiological-psychological data linkage.">针对军事应激缺乏量化评估的空白，主导从0到1打造身心一体化训练评估平台，实现生理心理数据联动的科学化作训管理。</div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="用户需求挖掘与业务设计" data-en="User Needs Mining & Business Design">用户需求挖掘与业务设计</div>
+          <p data-zh="深度访谈15+军方作训管理者与一线官兵，提炼出20+项核心需求条目，主导设计"数据采集-训练实施-效果评估-优化迭代"全业务闭环。基于手环、脑电多模态数据，协同研发团队在6个月内完成平台MVP版本交付，上线后需求匹配度达90%。" data-en="Conducted in-depth interviews with 15+ military training managers and frontline soldiers, extracting 20+ core requirement items. Led the design of a full business closed-loop covering data collection, training implementation, outcome evaluation, and optimization iteration. Based on multi-modal data from wristbands and EEG, collaborated with the R&D team to deliver the platform MVP within 6 months, achieving 90% requirement matching upon launch.">深度访谈15+军方作训管理者与一线官兵，提炼出20+项核心需求条目，主导设计"数据采集-训练实施-效果评估-优化迭代"全业务闭环。基于手环、脑电多模态数据，协同研发团队在6个月内完成平台MVP版本交付，上线后需求匹配度达90%。</p>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="评估体系与量化模型搭建" data-en="Assessment System & Quantitative Model Building">评估体系与量化模型搭建</div>
+          <p data-zh="主导训练结果评估模型与标准化报告体系设计，构建包含应激水平、注意力、决策效能等2大维度14项指标的量化评估体系（生理维度、心理维度），首次实现官兵心理状态的自动化、标准化输出。" data-en="Led the design of the training outcome evaluation model and standardized reporting system, building a quantitative assessment framework with 2 dimensions and 14 indicators (physiological and psychological dimensions) covering stress levels, attention, and decision-making effectiveness, achieving the first automated and standardized output of soldiers' psychological status.">主导训练结果评估模型与标准化报告体系设计，构建包含应激水平、注意力、决策效能等2大维度14项指标的量化评估体系（生理维度、心理维度），首次实现官兵心理状态的自动化、标准化输出。</p>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="跨领域体系复用" data-en="Cross-Domain System Reuse">跨领域体系复用</div>
+          <p data-zh="将核心评估体系打造成可跨场景复用的标准化资产。新场景适配周期从平均2个月缩短至2周（缩短75%），新增8套标准化测评量表，多场景评估覆盖率从30%提升至90%。直接支撑10+政务/安保部门项目快速落地，行业定制化项目平均交付周期缩短50%，客户使用率6个月内提升65%，用户满意度达95%。" data-en="Transformed the core assessment system into a standardized reusable asset across scenarios. Reduced new scenario adaptation cycle from an average of 2 months to 2 weeks (75% reduction), added 8 standardized assessment scales, and improved multi-scenario assessment coverage from 30% to 90%. Directly supported the rapid deployment of 10+ government/security department projects, shortened average delivery cycle for industry-customized projects by 50%, increased customer usage by 65% within 6 months, and achieved 95% user satisfaction.">将核心评估体系打造成可跨场景复用的标准化资产。新场景适配周期从平均2个月缩短至2周（缩短75%），新增8套标准化测评量表，多场景评估覆盖率从30%提升至90%。直接支撑10+政务/安保部门项目快速落地，行业定制化项目平均交付周期缩短50%，客户使用率6个月内提升65%，用户满意度达95%。</p>
+        </div>
+        <div class="card-tags">
+          <span data-zh="AI产品" data-en="AI Product">AI产品</span><span data-zh="军事心理" data-en="Military Psychology">军事心理</span><span data-zh="多模态数据" data-en="Multi-modal Data">多模态数据</span><span data-zh="量化评估" data-en="Quantitative Assessment">量化评估</span><span data-zh="跨领域复用" data-en="Cross-Domain Reuse">跨领域复用</span>
+        </div>
+        <!-- 项目1数据可视化 -->
+        <div class="data-viz-row">
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="需求匹配度" data-en="Requirement Matching">需求匹配度</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-sky)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="21.4"/>
+              </svg>
+              <div class="ring-label viz-sky">90%</div>
+            </div>
+            <div class="viz-sub" data-zh="15+深度访谈" data-en="15+ In-depth Interviews">15+深度访谈</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="评估覆盖率" data-en="Assessment Coverage">评估覆盖率</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-teal)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="21.4"/>
+              </svg>
+              <div class="ring-label viz-teal">90%</div>
+            </div>
+            <div class="viz-sub">30% → 90%</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="交付周期缩短" data-en="Delivery Cycle Reduction">交付周期缩短</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-coral)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="53.4"/>
+              </svg>
+              <div class="ring-label viz-coral">75%</div>
+            </div>
+            <div class="viz-sub">2个月 → 2周</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="量化评估体系" data-en="Quantitative Assessment System">量化评估体系</div>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label" data-zh="维度" data-en="Dimensions">维度</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:100%;background:var(--accent-warm)"></div></div>
+                <span class="bar-val" data-zh="2大" data-en="2 Major">2大</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label" data-zh="指标数" data-en="Indicators">指标数</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:100%;background:var(--accent-teal)"></div></div>
+                <span class="bar-val" data-zh="14项" data-en="14 Items">14项</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label" data-zh="测评量表" data-en="Scales">测评量表</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:80%;background:var(--accent-gold)"></div></div>
+                <span class="bar-val" data-zh="8套" data-en="8 Sets">8套</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bento-card parallax-layer" data-speed="0.02">
+        <span class="card-tag strategy" data-zh="策略策划" data-en="Strategy">策略策划</span>
+        <h3 data-zh="战场指挥员认知能力训练与评估体系建设项目" data-en="Battlefield Commander Cognitive Training & Assessment System Project">战场指挥员认知能力训练与评估体系建设项目</h3>
+        <div class="card-meta">
+          <span class="date">2025.07 - 2025.10</span>
+          <span data-zh="业务策划" data-en="Business Planning">业务策划</span>
+        </div>
+        <div class="card-desc" data-zh="紧急新项目，传统指挥员选拔缺量化体系，为军方搭建评估训练体系，支撑精准筛选与能力培养。" data-en="An urgent new project addressing the lack of quantitative systems in traditional commander selection, building an assessment and training system for the military to support precise screening and capability development.">紧急新项目，传统指挥员选拔缺量化体系，为军方搭建评估训练体系，支撑精准筛选与能力培养。</div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="策略闭环" data-en="Strategy Closed-Loop">策略闭环</div>
+          <p data-zh="4天内利用AI行业知识库+定向学术文献快速建立认知基线，联动心理学与军事认知博士专家团深度共创，缩短项目启动周期25%。2天内精准输出"决策审批层-终端使用层-运营管理层"三维分层用户画像，画像精准度达90%以上。" data-en="Established a cognitive baseline within 4 days using AI industry knowledge base and targeted academic literature, collaborating with a team of psychology and military cognition PhD experts, reducing project startup cycle by 25%. Outputted a three-tier layered user profile covering decision-making approval, end-user, and operations management levels within 2 days, with profile accuracy exceeding 90%.">4天内利用AI行业知识库+定向学术文献快速建立认知基线，联动心理学与军事认知博士专家团深度共创，缩短项目启动周期25%。2天内精准输出"决策审批层-终端使用层-运营管理层"三维分层用户画像，画像精准度达90%以上。</p>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="体系搭建" data-en="System Building">体系搭建</div>
+          <p data-zh="独立搭建指挥员认知能力评估指标体系、定性定量画像量表及训练模型，首次将抽象的"指挥才能"转化为可量化的4大维度21项指标（认知维度、环境维度、个人维度、生理维度）。" data-en="Independently built the commander cognitive ability assessment indicator system, qualitative-quantitative profiling scales, and training models, transforming the abstract concept of command capability into 4 measurable dimensions with 21 indicators (cognitive, environmental, personal, and physiological dimensions).">独立搭建指挥员认知能力评估指标体系、定性定量画像量表及训练模型，首次将抽象的"指挥才能"转化为可量化的4大维度21项指标（认知维度、环境维度、个人维度、生理维度）。</p>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="产品转化" data-en="Product Transformation">产品转化</div>
+          <p data-zh="主导将心理学评估体系转化为标准化产品需求文档PRD。该体系后续跨场景复用至社会心理服务、校园心理教育领域，支撑2+个新行业解决方案的快速输出。" data-en="Led the transformation of the psychology assessment system into standardized PRD documentation. The system was subsequently reused across social psychological services and campus psychological education, supporting the rapid output of 2+ new industry solutions.">主导将心理学评估体系转化为标准化产品需求文档PRD。该体系后续跨场景复用至社会心理服务、校园心理教育领域，支撑2+个新行业解决方案的快速输出。</p>
+        </div>
+        <div class="card-tags">
+          <span data-zh="军事认知" data-en="Military Cognition">军事认知</span><span data-zh="评估体系" data-en="Assessment System">评估体系</span><span data-zh="PRD" data-en="PRD">PRD</span><span data-zh="跨场景复用" data-en="Cross-Scene Reuse">跨场景复用</span>
+        </div>
+        <!-- 项目2数据可视化 -->
+        <div class="data-viz-row">
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="画像精准度" data-en="Profile Accuracy">画像精准度</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-lavender)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="21.4"/>
+              </svg>
+              <div class="ring-label viz-lavender">90%</div>
+            </div>
+            <div class="viz-sub" data-zh="三维分层画像" data-en="3-Tier Layered Profile">三维分层画像</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="启动周期缩短" data-en="Startup Cycle Reduction">启动周期缩短</div>
+            <div class="ring-chart">
+              <svg viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="34"/>
+                <circle class="ring-fill" cx="40" cy="40" r="34" stroke="var(--accent-warm)" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-target="160.2"/>
+              </svg>
+              <div class="ring-label viz-warm">25%</div>
+            </div>
+            <div class="viz-sub" data-zh="4天完成认知基线" data-en="Baseline in 4 Days">4天完成认知基线</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="评估指标体系" data-en="Assessment Indicator System">评估指标体系</div>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label" data-zh="维度" data-en="Dimensions">维度</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:100%;background:var(--accent-lavender)"></div></div>
+                <span class="bar-val" data-zh="4大" data-en="4 Major">4大</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label" data-zh="指标" data-en="Indicators">指标</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:100%;background:var(--accent-sky)"></div></div>
+                <span class="bar-val" data-zh="21项" data-en="21 Items">21项</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label" data-zh="新行业" data-en="New Industries">新行业</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:50%;background:var(--accent-teal)"></div></div>
+                <span class="bar-val" data-zh="2+" data-en="2+">2+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 项目3 -->
+      <div class="bento-card parallax-layer" data-speed="0.025">
+        <span class="card-tag pm" data-zh="产品运营" data-en="Operations">产品运营</span>
+        <h3 data-zh="杏林文化工作室 / 贝斯特正装工作室" data-en="Xinglin Cultural Studio / Best Formal Wear Studio">杏林文化工作室 / 贝斯特正装工作室</h3>
+        <div class="card-meta">
+          <span class="date">2020.10 - 2022.07</span>
+          <span data-zh="产品 & 运营负责人" data-en="Product & Operations Lead">产品 & 运营负责人</span>
+        </div>
+        <div class="card-desc" data-zh="校园文创及正装服务工作室，负责产品调研、社群运营、活动策划等全流程运营。" data-en="Campus cultural creative and formal wear service studio, responsible for full-cycle operations including product research, community management, and event planning.">校园文创及正装服务工作室，负责产品调研、社群运营、活动策划等全流程运营。</div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="产品调研" data-en="Product Research">产品调研</div>
+          <p data-zh="产品上线前与百位学生进行文创及正装需求线上线下调研，并产出调研报告。" data-en="Conducted online and offline research on cultural creative and formal wear needs with 100+ students before product launch, and produced a comprehensive research report.">产品上线前与百位学生进行文创及正装需求线上线下调研，并产出调研报告。</p>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="项目方案" data-en="Project Planning">项目方案</div>
+          <p data-zh="针对中草药香囊完成竞品分析，输出"药香生活行"营销主题，策划五个维度营销路线。" data-en="Completed competitive analysis for herbal sachet products, developed the Herbal Aroma Lifestyle marketing theme, and planned a five-dimension marketing strategy.">针对中草药香囊完成竞品分析，输出"药香生活行"营销主题，策划五个维度营销路线。</p>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="社群运营 & 活动策划" data-en="Community Management & Event Planning">社群运营 & 活动策划</div>
+          <p data-zh="负责200+文创社群运营及租售服装社群运营，组织工作室举行7+场大型活动。" data-en="Managed 200+ member cultural creative community and formal wear rental community, organized 7+ large-scale events for the studio.">负责200+文创社群运营及租售服装社群运营，组织工作室举行7+场大型活动。</p>
+        </div>
+        <div class="card-tags">
+          <span data-zh="产品调研" data-en="Product Research">产品调研</span><span data-zh="社群运营" data-en="Community Ops">社群运营</span><span data-zh="活动策划" data-en="Event Planning">活动策划</span><span data-zh="营销方案" data-en="Marketing Plan">营销方案</span>
+        </div>
+        <!-- 项目3数据可视化 -->
+        <div class="data-viz-row">
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="调研覆盖" data-en="Research Coverage">调研覆盖</div>
+            <div class="viz-value viz-warm">100+</div>
+            <div class="viz-sub" data-zh="学生需求调研" data-en="Student Needs Survey">学生需求调研</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="社群规模" data-en="Community Size">社群规模</div>
+            <div class="viz-value viz-teal">200+</div>
+            <div class="viz-sub" data-zh="文创社群成员" data-en="Cultural Creative Members">文创社群成员</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="大型活动" data-en="Large Events">大型活动</div>
+            <div class="viz-value viz-gold">7+</div>
+            <div class="viz-sub" data-zh="品牌活动策划" data-en="Brand Event Planning">品牌活动策划</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 项目4 -->
+      <div class="bento-card parallax-layer" data-speed="0.02">
+        <span class="card-tag strategy" data-zh="调研领队" data-en="Research Lead">调研领队</span>
+        <h3 data-zh="大学生暑期三下乡" data-en="College Student Summer Social Practice">大学生暑期三下乡</h3>
+        <div class="card-meta">
+          <span class="date">2022.04 - 2023.10</span>
+          <span data-zh="领队、调研负责人" data-en="Team Lead, Research Lead">领队、调研负责人</span>
+        </div>
+        <div class="card-desc" data-zh="以茂名市第三人民医院为中心进行团体心理帮助，开展护士睡眠质量调研并发表论文。" data-en="Conducted group psychological assistance centered at Maoming Third People's Hospital, carried out research on nurses' sleep quality, and published a paper.">以茂名市第三人民医院为中心进行团体心理帮助，开展护士睡眠质量调研并发表论文。</div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="主题策划" data-en="Theme Planning">主题策划</div>
+          <p data-zh="制定详细计划和组织方案，包括活动目的、时间安排、人员分工、物资准备、预算等方面。" data-en="Developed detailed plans and organizational proposals, covering activity objectives, scheduling, personnel allocation, material preparation, and budgeting.">制定详细计划和组织方案，包括活动目的、时间安排、人员分工、物资准备、预算等方面。</p>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title" data-zh="调研内容" data-en="Research Content">调研内容</div>
+          <p data-zh="针对护士睡眠质量进行调研，采用线上线下问卷调查法进行数据收集，使用SPSS等工具进行数据分析，最终结论发表于国内心理期刊，可于中国知网查阅。" data-en="Conducted research on nurses' sleep quality using online and offline questionnaire surveys for data collection, analyzed data using SPSS and other tools, and published findings in a domestic psychology journal, available on CNKI.">针对护士睡眠质量进行调研，采用线上线下问卷调查法进行数据收集，使用SPSS等工具进行数据分析，最终结论发表于国内心理期刊，可于中国知网查阅。</p>
+        </div>
+        <div class="card-tags">
+          <span data-zh="心理调研" data-en="Psych Research">心理调研</span><span data-zh="SPSS分析" data-en="SPSS Analysis">SPSS分析</span><span data-zh="论文发表" data-en="Publication">论文发表</span><span data-zh="团队管理" data-en="Team Mgmt">团队管理</span>
+        </div>
+        <!-- 项目4数据可视化 -->
+        <div class="data-viz-row">
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="项目成果" data-en="Project Outcome">项目成果</div>
+            <div class="viz-value viz-coral" data-zh="论文" data-en="Paper">论文</div>
+            <div class="viz-sub" data-zh="发表于《心理月刊》" data-en="Published in Psychology Monthly">发表于《心理月刊》</div>
+          </div>
+          <div class="data-viz-card">
+            <div class="viz-label" data-zh="分析方法" data-en="Analysis Methods">分析方法</div>
+            <div class="bar-chart">
+              <div class="bar-row">
+                <span class="bar-label" data-zh="问卷调查" data-en="Survey">问卷调查</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:90%;background:var(--accent-coral)"></div></div>
+                <span class="bar-val" data-zh="线上+线下" data-en="Online+Offline">线上+线下</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">SPSS</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:85%;background:var(--accent-sky)"></div></div>
+                <span class="bar-val" data-zh="统计分析" data-en="Statistics">统计分析</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label" data-zh="知网" data-en="CNKI">知网</span>
+                <div class="bar-track"><div class="bar-fill" style="--bar-width:95%;background:var(--accent-teal)"></div></div>
+                <span class="bar-val" data-zh="可查阅" data-en="Available">可查阅</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 教育背景 ===== -->
+  <div class="section" id="section-education">
+    <div class="section-header">
+      <h2 data-text="教育背景">教育背景 <span data-text="Education" style="font-size:0.5em;color:var(--text-dim);font-weight:400">Education</span></h2>
+      <p data-zh="双一流高校 · 应用心理学" data-en="Double First-Class University · Applied Psychology">双一流高校 · 应用心理学</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="edu-card glass-strong parallax-layer" data-speed="0.02">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-info">
+        <h3 data-zh="广州中医药大学" data-en="Guangzhou University of Chinese Medicine">广州中医药大学</h3>
+        <div class="edu-school" data-zh="双一流高校 · 全日制本科" data-en="Double First-Class University · Full-time Bachelor's">双一流高校 · 全日制本科</div>
+        <div class="edu-detail">
+          <p><strong data-zh="专业：" data-en="Major: ">专业：</strong><span data-zh="应用心理学" data-en="Applied Psychology">应用心理学</span></p>
+          <p><strong data-zh="学历：" data-en="Degree: ">学历：</strong><span data-zh="本科" data-en="Bachelor's">本科</span></p>
+          <p><strong data-zh="时间：" data-en="Period: ">时间：</strong><span data-zh="2020年 - 2024年" data-en="2020 - 2024">2020年 - 2024年</span></p>
+          <p><strong data-zh="类型：" data-en="Type: ">类型：</strong><span data-zh="全日制" data-en="Full-time">全日制</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 技能特长 ===== -->
+  <div class="section" id="section-skills">
+    <div class="section-header">
+      <h2 data-text="技能特长">技能特长 <span data-text="Skills & Abilities" style="font-size:0.5em;color:var(--text-dim);font-weight:400">Skills & Abilities</span></h2>
+      <p data-zh="产品能力 × AI工具 × 数据分析" data-en="Product × AI Tools × Data Analysis">产品能力 × AI工具 × 数据分析</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid">
+      <!-- 产品核心能力 - 进度条 -->
+      <div class="skill-category glass">
+        <h3><span class="cat-icon">📋</span> <span data-zh="产品与用户研究" data-en="Product & Research">产品与用户研究</span> <span style="font-size:0.7em;color:var(--text-dim);font-weight:400">Product & Research</span></h3>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="AI产品0-1设计 " data-en="AI Product Design ">AI产品0-1设计 <span class="skill-name-en">AI Product Design</span></span>
+            <span class="skill-level" data-zh="精通" data-en="Proficient">精通</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="用户研究与需求挖掘 " data-en="User Research ">用户研究与需求挖掘 <span class="skill-name-en">User Research</span></span>
+            <span class="skill-level" data-zh="精通" data-en="Proficient">精通</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:92%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="PRD文档撰写 " data-en="PRD Writing ">PRD文档撰写 <span class="skill-name-en">PRD Writing</span></span>
+            <span class="skill-level" data-zh="精通" data-en="Proficient">精通</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="数据驱动决策 " data-en="Data-Driven ">数据驱动决策 <span class="skill-name-en">Data-Driven</span></span>
+            <span class="skill-level" data-zh="熟练" data-en="Skilled">熟练</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="跨团队协作管理 " data-en="Cross-team ">跨团队协作管理 <span class="skill-name-en">Cross-team</span></span>
+            <span class="skill-level" data-zh="熟练" data-en="Skilled">熟练</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-tags" style="margin-top:16px">
+          <span data-zh="用户画像" data-en="User Persona">用户画像</span><span data-zh="漏斗分析" data-en="Funnel Analysis">漏斗分析</span><span data-zh="VOC闭环" data-en="VOC Loop">VOC闭环</span><span data-zh="多模态评估" data-en="Multi-modal Assessment">多模态评估</span><span data-zh="AI训练数据标注" data-en="AI Training Data Annotation">AI训练数据标注</span>
+        </div>
+      </div>
+
+      <!-- 专业工具 - 标签式（参考截图） -->
+      <div class="skill-category glass">
+        <h3><span class="cat-icon">🔧</span> <span data-zh="专业工具" data-en="Professional Tools">专业工具</span> <span style="font-size:0.7em;color:var(--text-dim);font-weight:400">Professional Tools</span></h3>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="智能体工作流设计 " data-en="Agent Workflow ">智能体工作流设计 <span class="skill-name-en">Agent Workflow</span></span>
+            <span class="skill-level" data-zh="精通" data-en="Proficient">精通</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:93%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Coze / OpenCode / Claude</span>
+            <span class="skill-level" data-zh="熟练" data-en="Skilled">熟练</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">飞书 / Vscode</span>
+            <span class="skill-level" data-zh="熟练" data-en="Skilled">熟练</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-tags" style="margin-top:16px">
+          <span>SPSS</span><span>A/B Test</span><span data-zh="营销文案自动化" data-en="Marketing Copy Automation">营销文案自动化</span><span data-zh="售前智能客服" data-en="Pre-sales AI Agent">售前智能客服</span><span data-zh="文档自动输出" data-en="Auto Doc Generation">文档自动输出</span><span data-zh="会议纪要生成" data-en="Meeting Notes Generation">会议纪要生成</span><span data-zh="多维表格处理" data-en="Multi-dimensional Tables">多维表格处理</span>
+        </div>
+      </div>
+
+      <!-- 数据分析能力 - 进度条 -->
+      <div class="skill-category glass">
+        <h3><span class="cat-icon">📊</span> <span data-zh="数据分析" data-en="Data Analysis">数据分析</span> <span style="font-size:0.7em;color:var(--text-dim);font-weight:400">Data Analysis</span></h3>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="SPSS统计分析 " data-en="SPSS Analysis ">SPSS统计分析 <span class="skill-name-en">SPSS Analysis</span></span>
+            <span class="skill-level" data-zh="熟练" data-en="Skilled">熟练</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="A/B Test实验设计 " data-en="A/B Testing ">A/B Test实验设计 <span class="skill-name-en">A/B Testing</span></span>
+            <span class="skill-level" data-zh="熟练" data-en="Skilled">熟练</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name" data-zh="漏斗分析与转化优化 " data-en="Funnel Analysis ">漏斗分析与转化优化 <span class="skill-name-en">Funnel Analysis</span></span>
+            <span class="skill-level" data-zh="精通" data-en="Proficient">精通</span>
+          </div>
+          <div class="skill-bar"><div class="fill" style="width:90%"></div></div>
+        </div>
+      </div>
+
+      <!-- 心理学与认证 - 标签式（参考截图） -->
+      <div class="skill-category glass">
+        <h3><span class="cat-icon">🧠</span> <span data-zh="心理学与认证" data-en="Psychology & Certs">心理学与认证</span> <span style="font-size:0.7em;color:var(--text-dim);font-weight:400">Psychology & Certs</span></h3>
+        <div class="skill-tags" style="margin-top:0">
+          <span data-zh="AI智能体应用高级工程师" data-en="Senior AI Agent Application Engineer">AI智能体应用高级工程师</span>
+          <span data-zh="普通话二级甲等" data-en="Mandarin Level 2-A">普通话二级甲等</span>
+          <span>CET-4</span>
+          <span data-zh="日常英语听说读写" data-en="Daily English (R/W/L/S)">日常英语听说读写</span>
+          <span data-zh="Office高阶功能" data-en="Advanced Office Skills">Office高阶功能</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 证书/荣誉 ===== -->
+  <div class="section" id="section-honors">
+    <div class="section-header">
+      <h2 data-text="证书与荣誉">证书与荣誉 <span data-text="Honors & Awards" style="font-size:0.5em;color:var(--text-dim);font-weight:400">Honors & Awards</span></h2>
+      <p data-zh="学术、创新、实践" data-en="Academic, Innovation, Practice">学术、创新、实践</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="honors-grid">
+      <!-- 特色论文卡片 -->
+      <div class="honor-card featured">
+        <div class="honor-icon">📄</div>
+        <div class="honor-info">
+          <h4 data-zh="2023年于《心理月刊》发表文章" data-en="2023 Published in Psychology Monthly">2023年于《心理月刊》发表文章</h4>
+          <p data-zh=""新冠疫情下护士知觉压力对睡眠质量的影响：应对方式的中介作用"" data-en="&quot;The Effect of Nurses' Perceived Stress on Sleep Quality During COVID-19: The Mediating Role of Coping Styles&quot;">"新冠疫情下护士知觉压力对睡眠质量的影响：应对方式的中介作用"</p>
+        </div>
+      </div>
+      <!-- 紧凑列表式荣誉 -->
+      <div class="honor-list">
+        <div class="honor-list-item">
+          <div class="honor-icon">🏆</div>
+          <div class="honor-info">
+            <h4 data-zh="第十届"赢在广州"暨粤港澳大湾区大学生创业比赛 - 项目创新奖" data-en="10th Win in Guangzhou & GBA College Student Entrepreneurship Competition - Innovation Award">第十届"赢在广州"暨粤港澳大湾区大学生创业比赛 - 项目创新奖</h4>
+            <p data-zh="创新创业竞赛" data-en="Innovation Competition">创新创业竞赛</p>
+          </div>
+        </div>
+        <div class="honor-list-item">
+          <div class="honor-icon">🥈</div>
+          <div class="honor-info">
+            <h4 data-zh="2021年"塞莱拉杯"创新创业大赛 - 校内二等奖" data-en="2021 Celera Cup Innovation & Entrepreneurship Competition - 2nd Prize">2021年"塞莱拉杯"创新创业大赛 - 校内二等奖</h4>
+            <p data-zh="创新创业竞赛" data-en="Innovation Competition">创新创业竞赛</p>
+          </div>
+        </div>
+        <div class="honor-list-item">
+          <div class="honor-icon">📋</div>
+          <div class="honor-info">
+            <h4 data-zh="2022年度大学生创新创业 - 校级立项" data-en="2022 College Student Innovation & Entrepreneurship - University-level Project">2022年度大学生创新创业 - 校级立项</h4>
+            <p data-zh="创新创业项目" data-en="Innovation Project">创新创业项目</p>
+          </div>
+        </div>
+        <div class="honor-list-item">
+          <div class="honor-icon">⭐</div>
+          <div class="honor-info">
+            <h4 data-zh="勤工助学管理中心创业园 - "优秀部门负责人"" data-en="Work-Study Center Incubator - Outstanding Department Lead">勤工助学管理中心创业园 - "优秀部门负责人"</h4>
+            <p data-zh="校园管理荣誉" data-en="Campus Management">校园管理荣誉</p>
+          </div>
+        </div>
+        <div class="honor-list-item">
+          <div class="honor-icon">🎖️</div>
+          <div class="honor-info">
+            <h4 data-zh="院级暑期三下乡 - "优秀负责人"" data-en="College-level Summer Social Practice - Outstanding Lead">院级暑期三下乡 - "优秀负责人"</h4>
+            <p data-zh="社会实践荣誉" data-en="Social Practice">社会实践荣誉</p>
+          </div>
+        </div>
+        <div class="honor-list-item">
+          <div class="honor-icon">🥈</div>
+          <div class="honor-info">
+            <h4 data-zh="暑期三下乡活动 - 院二等奖" data-en="Summer Social Practice - College 2nd Prize">暑期三下乡活动 - 院二等奖</h4>
+            <p data-zh="社会实践荣誉" data-en="Social Practice">社会实践荣誉</p>
+          </div>
+        </div>
+        <div class="honor-list-item">
+          <div class="honor-icon">🥇</div>
+          <div class="honor-info">
+            <h4 data-zh="2022年"卫管杯"学术论文大赛 - 一等奖" data-en="2022 Health Management Cup Academic Paper Competition - 1st Prize">2022年"卫管杯"学术论文大赛 - 一等奖</h4>
+            <p data-zh="学术研究荣誉" data-en="Academic Research">学术研究荣誉</p>
+          </div>
+        </div>
+        <div class="honor-list-item">
+          <div class="honor-icon">🏅</div>
+          <div class="honor-info">
+            <h4 data-zh="2022年"立志·修身·博学·报国"主题教育系列活动 - 校级二等奖" data-en="2022 Theme Education Series - University 2nd Prize">2022年"立志·修身·博学·报国"主题教育系列活动 - 校级二等奖</h4>
+            <p data-zh="主题教育荣誉" data-en="Theme Education">主题教育荣誉</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 专利 ===== -->
+  <div class="section" id="section-patent">
+    <div class="section-header">
+      <h2 data-text="个人专利">个人专利 <span data-text="Patent" style="font-size:0.5em;color:var(--text-dim);font-weight:400">Patent</span></h2>
+      <p data-zh="健康监测技术创新" data-en="Health Monitoring Technology Innovation">健康监测技术创新</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="patent-card glass-strong parallax-layer" data-speed="0.015">
+      <div class="patent-header">
+        <div class="patent-badge" data-zh="发明专利" data-en="Invention Patent">发明专利</div>
+        <a href="https://pss-system.cponline.cnipa.gov.cn/documents/detail?prevPageTit=changgui" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;"><h3 data-zh="基于皮肤阻抗及运动量的监测方法、装置、设备及介质" data-en="Monitoring Method, Device, Equipment and Medium Based on Skin Impedance and Exercise Volume">基于皮肤阻抗及运动量的监测方法、装置、设备及介质</h3></a>
+      </div>
+      <div class="patent-meta">
+        <div class="meta-item"><strong data-zh="专利号：" data-en="Patent No.: ">专利号：</strong>CN 118762835 A</div>
+        <div class="meta-item"><strong data-zh="申请号：" data-en="Application No.: ">申请号：</strong>202411223747.3</div>
+        <div class="meta-item"><strong data-zh="申请日：" data-en="Filed: ">申请日：</strong>2024年09月03日</div>
+        <div class="meta-item"><strong data-zh="公布日：" data-en="Published: ">公布日：</strong>2024年10月11日</div>
+        <div class="meta-item"><strong data-zh="申请人：" data-en="Applicant: ">申请人：</strong>深圳市鹰瞳智能技术有限公司</div>
+      </div>
+      <div class="patent-desc">
+        <p data-zh="本发明涉及健康监测技术领域，通过实时获取用户皮肤阻抗和运动数据并转换为数据序列，设定双滑动窗口分别监测皮肤阻抗与运动量，基于数据变化特征和时间序列动态调整窗口大小与位置，计算皮肤阻抗与运动量的相关性指标，实现对用户健康状况的准确监测和评估。该技术可应用于穿戴式健康监测设备，为用户提供个性化健康管理服务。" data-en="This invention relates to the field of health monitoring technology. By acquiring user skin impedance and exercise data in real-time and converting them into data sequences, setting dual sliding windows to monitor skin impedance and exercise volume respectively, dynamically adjusting window size and position based on data change characteristics and time series, and calculating correlation indicators between skin impedance and exercise volume, it achieves accurate monitoring and assessment of user health status. This technology can be applied to wearable health monitoring devices, providing users with personalized health management services.">本发明涉及健康监测技术领域，通过实时获取用户皮肤阻抗和运动数据并转换为数据序列，设定双滑动窗口分别监测皮肤阻抗与运动量，基于数据变化特征和时间序列动态调整窗口大小与位置，计算皮肤阻抗与运动量的相关性指标，实现对用户健康状况的准确监测和评估。该技术可应用于穿戴式健康监测设备，为用户提供个性化健康管理服务。</p>
+      </div>
+      <div class="patent-inventors">
+        <span data-zh="发明人：" data-en="Inventors: ">发明人：<strong>王剑宜 · 何海银 · 骆铭 · 白佳鹭 · 陈文明</strong></span>
+      </div>
+      <div class="card-tags" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:6px;">
+        <span style="padding:4px 12px; border-radius:var(--radius-small); font-size:0.8rem; background:rgba(232,131,58,0.06); border:1px solid rgba(232,131,58,0.12); color:var(--text-secondary);" data-zh="健康监测" data-en="Health Monitoring">健康监测</span>
+        <span style="padding:4px 12px; border-radius:var(--radius-small); font-size:0.8rem; background:rgba(232,131,58,0.06); border:1px solid rgba(232,131,58,0.12); color:var(--text-secondary);" data-zh="皮肤阻抗" data-en="Skin Impedance">皮肤阻抗</span>
+        <span style="padding:4px 12px; border-radius:var(--radius-small); font-size:0.8rem; background:rgba(232,131,58,0.06); border:1px solid rgba(232,131,58,0.12); color:var(--text-secondary);" data-zh="滑动窗口" data-en="Sliding Window">滑动窗口</span>
+        <span style="padding:4px 12px; border-radius:var(--radius-small); font-size:0.8rem; background:rgba(232,131,58,0.06); border:1px solid rgba(232,131,58,0.12); color:var(--text-secondary);" data-zh="数据分析" data-en="Data Analysis">数据分析</span>
+        <span style="padding:4px 12px; border-radius:var(--radius-small); font-size:0.8rem; background:rgba(232,131,58,0.06); border:1px solid rgba(232,131,58,0.12); color:var(--text-secondary);" data-zh="穿戴式设备" data-en="Wearable Device">穿戴式设备</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 校园经历 ===== -->
+  <div class="section" id="section-campus">
+    <div class="section-header">
+      <h2 data-text="校园经历">校园经历 <span data-text="Campus Experience" style="font-size:0.5em;color:var(--text-dim);font-weight:400">Campus Experience</span></h2>
+      <p data-zh="管理与执行能力锻炼" data-en="Management & Execution Skills">管理与执行能力锻炼</p>
+      <div class="section-divider"></div>
+    </div>
+    <div class="campus-grid">
+      <div class="campus-card glass parallax-layer" data-speed="0.02">
+        <div class="campus-header">
+          <h3 data-zh="勤工助学管理中心 - 创业园" data-en="Work-Study Center - Incubator">勤工助学管理中心 - 创业园</h3>
+          <span class="campus-date">2020.10 - 2022.07</span>
+        </div>
+        <div class="campus-role" data-zh="部门负责人" data-en="Department Lead">部门负责人</div>
+        <ul>
+          <li data-zh="经营管理校园文创类杏林文化工作室、杏林书报亭以及贝斯特正装服务工作室" data-en="Managed campus cultural creative Xinglin Studio, Xinglin Newsstand, and Best Formal Wear Service Studio">经营管理校园文创类杏林文化工作室、杏林书报亭以及贝斯特正装服务工作室</li>
+          <li data-zh="主负责产品调研、平台运营和辅助社群运营及团队管理" data-en="Primarily responsible for product research, platform operations, community management, and team management">主负责产品调研、平台运营和辅助社群运营及团队管理</li>
+          <li data-zh="作为面试官参与校内岗位面试招聘工作超400人次" data-en="Participated as interviewer in on-campus job recruitment for 400+ candidates">作为面试官参与校内岗位面试招聘工作超400人次</li>
+          <li data-zh="组织协助校园毕业招聘活动等" data-en="Organized and assisted campus graduation recruitment events">组织协助校园毕业招聘活动等</li>
+        </ul>
+      </div>
+      <div class="campus-card glass parallax-layer" data-speed="0.025">
+        <div class="campus-header">
+          <h3 data-zh="校外心理辅导队 - 心理咨询部" data-en="Off-Campus Psychological Counseling Team">校外心理辅导队 - 心理咨询部</h3>
+          <span class="campus-date">2022.12 - 2023.07</span>
+        </div>
+        <div class="campus-role" data-zh="心理实习老师" data-en="Psychology Intern">心理实习老师</div>
+        <ul>
+          <li data-zh="前往华南师范大学附属小学进行心理辅导，进行个人心理咨询及团体心理辅导" data-en="Provided psychological counseling at the Primary School Affiliated to South China Normal University, conducting both individual and group counseling sessions">前往华南师范大学附属小学进行心理辅导，进行个人心理咨询及团体心理辅导</li>
+          <li data-zh="对学生进行心理评估（能力、兴趣、性格等），引导学生制定针对性学习计划" data-en="Conducted psychological assessments for students (abilities, interests, personality, etc.) and guided them in developing targeted learning plans">对学生进行心理评估（能力、兴趣、性格等），引导学生制定针对性学习计划</li>
+          <li data-zh="定期与学生家长沟通，了解家庭背景和学习情况，提供心理支持和建议" data-en="Regularly communicated with parents to understand family backgrounds and learning situations, providing psychological support and recommendations">定期与学生家长沟通，了解家庭背景和学习情况，提供心理支持和建议</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <div class="footer-line"></div>
+  <p>&copy; <span id="currentYear"></span> <span data-zh="白佳鹭 · 以心理学为底座，以AI技术为驱动" data-en="Nora Bai · Psychology as Foundation, AI as Driver">白佳鹭 · 以心理学为底座，以AI技术为驱动</span></p>
+</footer>
+
+<script>
+/* ========== 动态年份 ========== */
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+/* ========== 头像优先级探测函数 ========== */
+/* 按顺序尝试加载 avatar.png、avatar.jpg、avatar.jpeg */
+/* 引用与HTML文件同一目录下的本地图片，任一成功即设为头像源 */
+(function initAvatar() {
+  var container = document.getElementById('avatarContainer');
+  var formats = ['avatar.png', 'avatar.jpg', 'avatar.jpeg'];
+  var currentIndex = 0;
+
+  function tryLoadNext() {
+    if (currentIndex >= formats.length) return; // 全部失败，保持占位样式
+    var img = new Image();
+    img.onload = function() {
+      // 加载成功，将图片设为头像
+      var avatarImg = document.createElement('img');
+      avatarImg.src = formats[currentIndex];
+      avatarImg.alt = '白佳鹭';
+      avatarImg.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;top:0;left:0;';
+      container.appendChild(avatarImg);
+      // 隐藏占位文字（首字母）
+      var textNode = container.childNodes[0];
+      if (textNode && textNode.nodeType === 3) {
+        textNode.textContent = '';
+      }
+    };
+    img.onerror = function() {
+      currentIndex++;
+      tryLoadNext();
+    };
+    img.src = formats[currentIndex];
+  }
+
+  tryLoadNext();
+})();
+
+/* ========== 导航栏交互 ========== */
+var navLinks = document.querySelectorAll('.nav-links a');
+var sections = document.querySelectorAll('.section');
+var menuToggle = document.getElementById('menuToggle');
+var navLinksContainer = document.getElementById('navLinks');
+
+// 点击导航切换栏目
+navLinks.forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    var targetSection = this.getAttribute('data-section');
+
+    // 更新导航激活状态
+    navLinks.forEach(function(l) { l.classList.remove('active'); });
+    this.classList.add('active');
+
+    // 切换内容区块（淡入淡出效果）
+    sections.forEach(function(sec) {
+      sec.classList.remove('active');
+      sec.style.animation = 'none';
+    });
+
+    var target = document.getElementById('section-' + targetSection);
+    if (target) {
+      // 触发重排以重新播放动画
+      void target.offsetWidth;
+      target.style.animation = '';
+      target.classList.add('active');
+    }
+
+    // 关闭移动端菜单
+    navLinksContainer.classList.remove('open');
+    menuToggle.classList.remove('active');
+
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// 移动端菜单切换
+menuToggle.addEventListener('click', function() {
+  this.classList.toggle('active');
+  navLinksContainer.classList.toggle('open');
+});
+
+/* ========== 导航栏滚动效果 ========== */
+var navbar = document.getElementById('navbar');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 20) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+/* ========== 视差滚动效果 ========== */
+var parallaxLayers = document.querySelectorAll('.parallax-layer');
+window.addEventListener('scroll', function() {
+  var scrollY = window.scrollY;
+  parallaxLayers.forEach(function(layer) {
+    var speed = parseFloat(layer.getAttribute('data-speed')) || 0.02;
+    var rect = layer.getBoundingClientRect();
+    // 仅在视口内的元素应用视差
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      var yOffset = scrollY * speed;
+      layer.style.transform = 'translateY(' + (-yOffset) + 'px)';
+    }
+  });
+});
+
+/* ========== 技能条动画（进入视口时触发） ========== */
+var skillBars = document.querySelectorAll('.skill-bar .fill');
+var skillsSection = document.getElementById('section-skills');
+var skillsAnimated = false;
+
+function animateSkillBars() {
+  if (skillsAnimated) return;
+  skillBars.forEach(function(bar) {
+    var width = bar.style.width;
+    bar.style.width = '0%';
+    setTimeout(function() {
+      bar.style.width = width;
+    }, 200);
+  });
+  skillsAnimated = true;
+}
+
+/* ========== 技能区hover交互 ========== */
+var initSkillInteractions = function() {
+  // 技能条hover重播
+  var skillItems = document.querySelectorAll('.skill-item');
+  skillItems.forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      var fill = item.querySelector('.skill-bar .fill');
+      if (fill) {
+        var w = fill.style.width;
+        fill.style.transition = 'none';
+        fill.style.width = '0%';
+        void fill.offsetWidth;
+        fill.style.transition = 'width 0.8s var(--ease-out-quart), filter 0.3s ease, height 0.3s ease';
+        fill.style.width = w;
+      }
+    });
+  });
+
+  // 技能标签hover弹跳动画
+  var tags = document.querySelectorAll('.skill-tags span');
+  tags.forEach(function(tag) {
+    tag.addEventListener('mouseenter', function() {
+      tag.style.transition = 'none';
+      tag.style.transform = 'scale(0.9)';
+      void tag.offsetWidth;
+      tag.style.transition = 'all 0.4s var(--ease-out-quart)';
+      tag.style.transform = 'translateY(-3px) scale(1.05)';
+    });
+  });
+};
+
+// 使用IntersectionObserver监听技能区域进入视口
+if ('IntersectionObserver' in window) {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && entry.target.id === 'section-skills') {
+        animateSkillBars();
+      }
+    });
+  }, { threshold: 0.2 });
+
+  sections.forEach(function(sec) { observer.observe(sec); });
+}
+
+// 当技能栏目被激活时也触发动画
+navLinks.forEach(function(link) {
+  link.addEventListener('click', function() {
+    if (this.getAttribute('data-section') === 'skills') {
+      setTimeout(animateSkillBars, 300);
+    }
+  });
+});
+
+/* ========== 环形图入场动画 ========== */
+var animateRingCharts = function() {
+  var rings = document.querySelectorAll('.ring-fill');
+  rings.forEach(function(ring) {
+    var target = parseFloat(ring.getAttribute('data-target'));
+    if (!target) return;
+    var circumference = 213.6; // 2 * PI * 34
+    ring.style.strokeDashoffset = circumference;
+    setTimeout(function() {
+      ring.style.strokeDashoffset = target;
+    }, 400);
+  });
+};
+
+/* ========== 条形图入场动画 ========== */
+var animateBarCharts = function() {
+  var barFills = document.querySelectorAll('.bar-fill');
+  barFills.forEach(function(fill) {
+    var w = fill.style.getPropertyValue('--bar-width');
+    if (!w) return;
+    fill.style.width = '0';
+    void fill.offsetWidth;
+    fill.style.transition = 'width 1s var(--ease-out-quart)';
+    fill.style.width = w;
+  });
+};
+
+/* ========== 鼠标悬停重新触发动画 ========== */
+var initMouseGlow = function() {
+  var cards = document.querySelectorAll('.data-viz-card');
+  cards.forEach(function(card) {
+    // 鼠标跟随光晕
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+    });
+
+    // 鼠标进入时重新播放该卡片内的动画
+    card.addEventListener('mouseenter', function() {
+      // 重新播放环形图动画
+      var ring = card.querySelector('.ring-fill');
+      if (ring) {
+        var target = parseFloat(ring.getAttribute('data-target'));
+        if (target) {
+          var circumference = 213.6;
+          ring.style.transition = 'none';
+          ring.style.strokeDashoffset = circumference;
+          void ring.offsetWidth;
+          ring.style.transition = 'stroke-dashoffset 1s var(--ease-out-quart)';
+          ring.style.strokeDashoffset = target;
+        }
+      }
+
+      // 重新播放条形图动画
+      var barFills = card.querySelectorAll('.bar-fill');
+      barFills.forEach(function(fill, i) {
+        var w = fill.style.getPropertyValue('--bar-width');
+        if (w) {
+          fill.style.transition = 'none';
+          fill.style.width = '0';
+          void fill.offsetWidth;
+          fill.style.transition = 'width 0.8s var(--ease-out-quart) ' + (i * 0.15) + 's';
+          fill.style.width = w;
+        }
+      });
+
+      // 数值弹跳效果
+      var val = card.querySelector('.viz-value');
+      if (val) {
+        val.style.transition = 'none';
+        val.style.transform = 'scale(0.8)';
+        val.style.opacity = '0.5';
+        void val.offsetWidth;
+        val.style.transition = 'transform 0.5s var(--ease-out-quart), opacity 0.3s ease';
+        val.style.transform = 'scale(1.1)';
+        val.style.opacity = '1';
+        setTimeout(function() {
+          val.style.transform = 'scale(1)';
+        }, 500);
+      }
+
+      // 环形标签弹跳
+      var ringLabel = card.querySelector('.ring-label');
+      if (ringLabel) {
+        ringLabel.style.transition = 'none';
+        ringLabel.style.transform = 'translate(-50%, -50%) scale(0.7)';
+        void ringLabel.offsetWidth;
+        ringLabel.style.transition = 'transform 0.6s var(--ease-out-quart)';
+        ringLabel.style.transform = 'translate(-50%, -50%) scale(1.15)';
+        setTimeout(function() {
+          ringLabel.style.transform = 'translate(-50%, -50%) scale(1)';
+        }, 600);
+      }
+    });
+  });
+
+  // 更新CSS使用自定义属性
+  var style = document.createElement('style');
+  style.textContent = '.data-viz-card::before { left: var(--mx, 50%); top: var(--my, 50%); }';
+  document.head.appendChild(style);
+};
+
+/* ========== 卡片入场动画 ========== */
+var animateCards = function() {
+  var cards = document.querySelectorAll('.bento-card, .honor-card, .honor-list-item, .campus-card, .timeline-item');
+  cards.forEach(function(card, index) {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.5s var(--ease-out-quart) ' + (index * 0.06) + 's, transform 0.5s var(--ease-out-quart) ' + (index * 0.06) + 's';
+    setTimeout(function() {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 100);
+  });
+};
+
+// 初始加载时对首页执行动画
+animateCards();
+animateRingCharts();
+animateBarCharts();
+initMouseGlow();
+initSkillInteractions();
+
+// 每次切换栏目时重新执行卡片动画
+navLinks.forEach(function(link) {
+  link.addEventListener('click', function() {
+    setTimeout(animateCards, 100);
+    setTimeout(animateRingCharts, 300);
+    setTimeout(animateBarCharts, 400);
+  });
+});
+
+/* ========== 语言切换 ========== */
+var currentLang = localStorage.getItem('lang') || 'zh';
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('[data-zh]').forEach(function(el) {
+    var text = el.getAttribute('data-' + lang);
+    if (text !== null) {
+      el.textContent = text;
+    }
+  });
+  // 更新按钮文字
+  var btn = document.querySelector('.lang-toggle');
+  if (btn) {
+    btn.textContent = lang === 'zh' ? 'EN' : '中';
+  }
+}
+// 初始化语言
+setLang(currentLang);
+// 绑定点击
+document.querySelector('.lang-toggle').addEventListener('click', function() {
+  setLang(currentLang === 'zh' ? 'en' : 'zh');
+});
+</script>
+</body>
+</html>
